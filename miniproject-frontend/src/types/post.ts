@@ -8,7 +8,7 @@ export interface Post {
   updated_at: string;
 }
 
-export interface PostWithAuthor extends Post {
+export interface PostPublished extends Post {
   user: {
     id: number;
     name: string;

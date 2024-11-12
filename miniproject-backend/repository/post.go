@@ -154,11 +154,12 @@ func (r *PostRepository) Delete(id uint) error {
 	return err
 }
 
-func (r *PostRepository) GetPostDetail() ([]models.PostWithUser, error) {
+func (r *PostRepository) GetPostPublished() ([]models.PostWithUser, error) {
 	query := `
 		SELECT p.id, p.user_id, p.title, p.content, p.is_published, p.created_at, p.updated_at, u.id, u.name, u.email
 		FROM posts p
 		JOIN users u ON p.user_id = u.id
+		WHERE p.is_published = true
 		ORDER BY p.created_at DESC
 	`
 	rows, err := r.db.Query(query)

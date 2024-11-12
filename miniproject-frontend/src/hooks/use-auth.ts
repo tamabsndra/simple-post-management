@@ -89,10 +89,3 @@ export function useLogout() {
     },
   })
 }
-
-export function useGetCurrentUser() {
-  return useQuery({
-    queryKey: ['user'],
-    queryFn: authApi.getCurrentUser,
-  })
-}

@@ -53,6 +53,6 @@ func (s *PostService) Delete(id uint) error {
 	return s.postRepo.Delete(id)
 }
 
-func (s *PostService) GetPostDetail() ([]models.PostWithUser, error) {
-	return s.postRepo.GetPostDetail()
+func (s *PostService) GetPostPublished() ([]models.PostWithUser, error) {
+	return s.postRepo.GetPostPublished()
 }

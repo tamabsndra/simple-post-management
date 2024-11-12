@@ -11,7 +11,7 @@ import type {
   CreatePostData,
   UpdatePostData,
   Post,
-  PostWithAuthor
+  PostPublished
 } from '@/types/post'
 import { toast } from '@/hooks/use-toast'
 
@@ -51,11 +51,6 @@ export const authApi = {
     return response.data
   },
 
-  getCurrentUser: async (): Promise<User> => {
-    const response = await api.get<User>('/me')
-    return response.data
-  },
-
   verifyCookieToken: async (): Promise<VerifyCookieTokenResponse> => {
     const response = await api.get<VerifyCookieTokenResponse>('/verify-cookie-token')
     return response.data
@@ -68,8 +63,8 @@ export const postApi = {
     return response.data
   },
 
-  getWithUser: async (): Promise<PostWithAuthor[]> => {
-    const response = await api.get<PostWithAuthor[]>('/post-detail')
+ getPostPublished: async (): Promise<PostPublished[]> => {
+    const response = await api.get<PostPublished[]>('/post-published')
     return response.data
   },
 

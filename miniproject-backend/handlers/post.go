@@ -199,9 +199,9 @@ func (h *PostHandler) Delete(c *gin.Context) {
 	c.JSON(http.StatusOK, models.SuccessResponse{Message: "post deleted successfully"})
 }
 
-func (h *PostHandler) GetPostDetail(c *gin.Context) {
+func (h *PostHandler) GetPostPublished(c *gin.Context) {
 	// get post with user data
-	posts, err := h.postService.GetPostDetail()
+	posts, err := h.postService.GetPostPublished()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, models.ErrorResponse{Error: err.Error()})
 		return

@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { useGetMyPosts, usePostWithUser, useDeletePost } from '@/hooks/use-posts'
+import { useGetMyPosts, usePostPublished, useDeletePost } from '@/hooks/use-posts'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,12 +19,12 @@ import { useAtom } from 'jotai'
 import { authAtom } from '@/store/auth'
 
 export default function DashboardPage() {
-  const { data: postWithUser } = usePostWithUser()
+  const { data: postPublished } = usePostPublished()
   const { data: myPost} = useGetMyPosts()
   const { mutate: deletePost } = useDeletePost()
   const [auth] = useAtom(authAtom)
 
-  const todayPosts = postWithUser?.filter((postTday) => {
+  const todayPosts = postPublished?.filter((postTday) => {
     const today = new Date()
     const postDate = new Date(postTday.created_at)
     return today.toDateString() === postDate.toDateString()
@@ -38,7 +38,7 @@ export default function DashboardPage() {
           <CardTitle className="text-sm font-medium">Total Posts</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{postWithUser?.length || 0}</div>
+          <div className="text-2xl font-bold">{postPublished?.length || 0}</div>
         </CardContent>
       </Card>
 
@@ -62,15 +62,15 @@ export default function DashboardPage() {
 
       <div className='col-span-3'>
         <h1 className="text-2xl font-bold mb-4">All Posts</h1>
-        {postWithUser?.map((postdetail) => (
-        <Card className='mb-4' key={postdetail.id}>
+        {postPublished?.map((post) => (
+        <Card className='mb-4' key={post.id}>
             <CardHeader>
             <div className="flex items-center justify-between">
-                <CardTitle>{postdetail.title}</CardTitle>
+                <CardTitle>{post.title}</CardTitle>
 
-                {postdetail.user_id === auth.user?.id && (
+                {post.user_id === auth.user?.id && (
                 <div className="flex items-center space-x-2">
-                    <Link href={`/posts/${postdetail.id}/edit`}>
+                    <Link href={`/posts/${post.id}/edit`}>
                     <Button variant="outline" size="sm">
                         <Pencil className="h-4 w-4" />
                     </Button>
@@ -92,7 +92,7 @@ export default function DashboardPage() {
                         <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={() => deletePost(postdetail.id)}
+                            onClick={() => deletePost(post.id)}
                             className="bg-red-500 hover:bg-red-600"
                         >
                             Delete
@@ -105,10 +105,10 @@ export default function DashboardPage() {
             </div>
             </CardHeader>
             <CardContent>
-            <p className="text-gray-600">{postdetail.content}</p>
+            <p className="text-gray-600">{post.content}</p>
             <div className="mt-2 text-sm text-gray-500">
-                <p>Author: {postdetail.user.name}</p>
-                <p>Created at: {new Date(postdetail.created_at).toLocaleDateString()}</p>
+                <p>Author: {post.user.name}</p>
+                <p>Created at: {new Date(post.created_at).toLocaleDateString()}</p>
             </div>
             </CardContent>
         </Card>

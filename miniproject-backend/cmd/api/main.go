@@ -89,7 +89,7 @@ func main() {
 			protected.PUT("/posts/:id", postHandler.Update)
 			protected.DELETE("/posts/:id", postHandler.Delete)
 
-			protected.GET("/post-detail", postHandler.GetPostDetail)
+			protected.GET("/post-published", postHandler.GetPostPublished)
             protected.GET("/posts/:id", postHandler.GetByID)
         }
     }

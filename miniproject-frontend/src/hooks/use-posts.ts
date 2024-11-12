@@ -78,10 +78,10 @@ export function useUpdatePost(id: number) {
   })
 }
 
-export function usePostWithUser() {
+export function usePostPublished() {
   return useQuery({
-    queryKey: ['posts', 'postsWithUser'],
-    queryFn: postApi.getWithUser,
+    queryKey: ['posts', 'postPublished'],
+    queryFn: postApi.getPostPublished,
   })
 }
 
