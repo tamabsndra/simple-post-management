@@ -35,6 +35,7 @@ export function useLogin() {
         title: "Error",
         description: error.response?.data?.error || "Invalid credentials",
       })
+      router.push('/login')
     },
   })
 }
@@ -79,7 +80,7 @@ export function useLogout() {
       })
       router.push('/login')
     },
-    onError: (error: any) => {
+    onError: () => {
       toast({
         variant: "destructive",
         title: "Error",

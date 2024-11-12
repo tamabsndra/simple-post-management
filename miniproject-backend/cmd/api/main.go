@@ -83,13 +83,14 @@ func main() {
             protected.POST("/logout", authHandler.Logout)
 			protected.GET("/me", authHandler.GetMe)
 
-            protected.POST("/posts", postHandler.Create)
             protected.GET("/posts", postHandler.GetAll)
-			protected.GET("/post-detail", postHandler.GetPostDetail)
-            protected.GET("/posts/:id", postHandler.GetByID)
 			protected.GET("/posts/my", postHandler.GetByUserID)
+            protected.POST("/posts", postHandler.Create)
 			protected.PUT("/posts/:id", postHandler.Update)
 			protected.DELETE("/posts/:id", postHandler.Delete)
+
+			protected.GET("/post-detail", postHandler.GetPostDetail)
+            protected.GET("/posts/:id", postHandler.GetByID)
         }
     }
 

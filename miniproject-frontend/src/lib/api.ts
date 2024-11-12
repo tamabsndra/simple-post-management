@@ -13,6 +13,7 @@ import type {
   Post,
   PostWithAuthor
 } from '@/types/post'
+import { toast } from '@/hooks/use-toast'
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api',
@@ -23,8 +24,12 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      window.location.href = '/login'
+    if (error.response.status === 401) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "You are not logged in",
+      })
     }
     return Promise.reject(error)
   }
